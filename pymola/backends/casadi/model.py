@@ -482,8 +482,8 @@ class Model:
 
             self.states = [v for k, v in all_states.items() if k in states]
             self.der_states = [v for k, v in all_states.items() if k in der_states]
-            self.alg_states = [v for k, v in all_states.items() if k in alg_states]
-            self.inputs = [v for k, v in all_states.items() if k in inputs]
+            self.alg_states = [v for k, v in all_states.items() if k in alg_states and set(v.aliases) <= alg_states.keys()]
+            self.inputs = [v for k, v in all_states.items() if k in inputs or any((x in inputs for x in v.aliases))]
             self.equations = reduced_equations
 
             if len(self.equations) > 0:
